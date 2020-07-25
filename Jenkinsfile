@@ -50,7 +50,7 @@ def slavePodTemplate = """
         parameters([
             booleanParam(defaultValue: false, description: 'Please select to apply the changes ', name: 'terraformApply'),
             booleanParam(defaultValue: false, description: 'Please select to destroy all ', name: 'terraformDestroy'), 
-            string(defaultValue: '', description: 'Please add an ami_id:', name: 'ami', trim: false),
+            string(defaultValue: '', description: 'Please add an ami_id:', name: 'ami_id', trim: false),
             choice(choices: ['us-west-2', 'us-west-1', 'us-east-2', 'us-east-1', 'eu-west-1'], description: 'Please select the region', name: 'aws_region'),
             booleanParam(defaultValue: false, description: 'yaml', name: 'yaml'),
             extendedChoice(description: 'Please select from bellow list', multiSelectDelimiter: ',', name: 'log', quoteValue: false, 
@@ -75,7 +75,7 @@ saveJSONParameterToFile: false, type: 'PT_MULTI_SELECT', value: 'TRACE, DEBUG, I
             println("Generate Variables")
             def deployment_configuration_tfvars = """
             environment = "${environment}"
-             ami = "${ami}"
+             ami_id = "${ami_id}"
            
             """.stripIndent()
             writeFile file: 'deployment_configuration.tfvars', text: "${deployment_configuration_tfvars}"
@@ -106,7 +106,7 @@ saveJSONParameterToFile: false, type: 'PT_MULTI_SELECT', value: 'TRACE, DEBUG, I
                                 set +ex
                                 ls -l
                                 export AWS_DEFAULT_REGION=${aws_region}
-                                export TF_LOG_PATH=./terraform.log
+                               
                                 source ./setenv.sh dev.tfvars
                                 TF_LOG=${log} terraform plan -var-file \$DATAFILE
                                 """
