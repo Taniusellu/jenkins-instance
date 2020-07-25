@@ -2,10 +2,10 @@ provider "aws" {}
 
 
 resource "aws_instance" "jenkins" {
-  ami          = "${var.ami}"
+  ami_id          = "${var.ami_id}"
   instance_type = "t2.micro"
 
   
 }
-variable "ami" {}
+variable "ami_id" {}
 
