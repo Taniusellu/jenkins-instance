@@ -1,6 +1,6 @@
 # jenkins-instance
 
-# Implimenting TF_LOG through Jenkins
+# Create params for ami id and Integrate debug mode for terraform
 
 <img width="637" alt="Screenshot_1820" src="https://user-images.githubusercontent.com/13994900/88467609-4c640780-ce9e-11ea-8903-79a55a77f1e1.png">
 
