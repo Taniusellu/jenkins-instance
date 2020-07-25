@@ -73,6 +73,7 @@ def slavePodTemplate = """
             def deployment_configuration_tfvars = """
             environment = "${environment}"
              ami_id = "${ami_id}"
+             
             """.stripIndent()
             writeFile file: 'deployment_configuration.tfvars', text: "${deployment_configuration_tfvars}"
             sh 'cat deployment_configuration.tfvars >> dev.tfvars'
@@ -92,7 +93,7 @@ def slavePodTemplate = """
                                 sh """
                                 #!/bin/bash
                                 export AWS_DEFAULT_REGION=${aws_region}
-                                 export TF_LOG=${TF_LOG}
+                                 export TF_LOG_PATH=./terraform.log
                                 source ./setenv.sh dev.tfvars
                                 terraform apply -auto-approve -var-file \$DATAFILE
                                 """
@@ -103,7 +104,7 @@ def slavePodTemplate = """
                                 set +ex
                                 ls -l
                                 export AWS_DEFAULT_REGION=${aws_region}
-                                export TF_LOG=${TF_LOG}
+                                export TF_LOG_PATH=./terraform.log
                                 source ./setenv.sh dev.tfvars
                                 terraform plan -var-file \$DATAFILE
                                 """
@@ -117,7 +118,7 @@ def slavePodTemplate = """
                             sh """
                             #!/bin/bash
                             export AWS_DEFAULT_REGION=${aws_region}
-                            export TF_LOG=${TF_LOG}
+                            export TF_LOG_PATH=./terraform.log
                             source ./setenv.sh dev.tfvars
                             terraform destroy -auto-approve -var-file \$DATAFILE
                             """
