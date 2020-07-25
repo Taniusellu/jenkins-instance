@@ -74,7 +74,7 @@ saveJSONParameterToFile: false, type: 'PT_MULTI_SELECT', value: 'TRACE, DEBUG, I
             def deployment_configuration_tfvars = """
             environment = "${environment}"
              ami_id = "${ami_id}"
-             name = "${name}"
+             Name = "${Name}"
              
             """.stripIndent()
             writeFile file: 'deployment_configuration.tfvars', text: "${deployment_configuration_tfvars}"
