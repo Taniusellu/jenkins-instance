@@ -1,5 +1,5 @@
 provider "aws" {}
-}
+
 
 resource "aws_instance" "jenkins" {
   ami_id          = "${var.ami_id}"
