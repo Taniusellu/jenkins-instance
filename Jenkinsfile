@@ -53,8 +53,6 @@ def slavePodTemplate = """
             string(defaultValue: '', description: 'Please add an ami_id:', name: 'ami', trim: false),
             choice(choices: ['us-west-2', 'us-west-1', 'us-east-2', 'us-east-1', 'eu-west-1'], description: 'Please select the region', name: 'aws_region'),
             booleanParam(defaultValue: false, description: 'yaml', name: 'yaml'),
-            extendedChoice(description: 'Please select from bellow list', multiSelectDelimiter: ',', name: 'log', quoteValue: false, 
-saveJSONParameterToFile: false, type: 'PT_MULTI_SELECT', value: 'TRACE, DEBUG, INFO, INFO, WARN, ERROR', visibleItemCount: 5),
             choice(choices: ['dev', 'qa', 'stage', 'prod'], description: 'Please select the environment to deploy.', name: 'environment')
             
             
@@ -75,7 +73,7 @@ saveJSONParameterToFile: false, type: 'PT_MULTI_SELECT', value: 'TRACE, DEBUG, I
             println("Generate Variables")
             def deployment_configuration_tfvars = """
             environment = "${environment}"
-             ami = "${ami}"
+            
            
             """.stripIndent()
             writeFile file: 'deployment_configuration.tfvars', text: "${deployment_configuration_tfvars}"
@@ -108,7 +106,7 @@ saveJSONParameterToFile: false, type: 'PT_MULTI_SELECT', value: 'TRACE, DEBUG, I
                                 export AWS_DEFAULT_REGION=${aws_region}
                                
                                 source ./setenv.sh dev.tfvars
-                                TF_LOG=${log} terraform plan -var-file \$DATAFILE
+                                terraform plan -var-file \$DATAFILE
                                 """
                             }
                         }
