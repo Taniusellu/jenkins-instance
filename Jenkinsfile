@@ -1,7 +1,7 @@
 def k8slabel = "jenkins-pipeline-${UUID.randomUUID().toString()}"
 
 def slavePodTemplate = """
-      metadata:
+      metadata: 
         labels:
           k8s-label: ${k8slabel}
         annotations:
